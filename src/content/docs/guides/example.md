@@ -1,11 +1,18 @@
 ---
-title: Example Guide
-description: A guide in my new Starlight docs site.
+title: Introducción a NutriActive
+description: Introducción a NutriActive.
 ---
 
-Guides lead a user through a specific task they want to accomplish, often with a sequence of steps.
-Writing a good guide requires thinking about what your users are trying to do.
+<p style="text-align: justify;">Bienvenido a NutriActive, tu Aplicación Móvil dedicada a promover hábitos alimenticios saludables y equilibrados. En un mundo donde el bienestar personal es más importante que nunca, NutriActive se erige como tu compañero fiel en el viaje hacia una vida más saludable.</p>
 
-## Further reading
+<p style="text-align: justify;">En NutriActive, entendemos que una alimentación adecuada no solo impacta tu salud física, sino también tu bienestar mental y emocional. Nuestro objetivo es proporcionarte las herramientas necesarias para transformar tus hábitos alimenticios de manera sostenible y positiva.</p>
 
-- Read [about how-to guides](https://diataxis.fr/how-to-guides/) in the Diátaxis framework
+<p style="text-align: justify;">A través de nuestra amplia colección de recetas saludables, diseñadas para todo tipo de gustos y niveles de habilidad culinaria, te invitamos a explorar nuevas formas de nutrir tu cuerpo. Desde desayunos energéticos hasta cenas reconfortantes, cada receta está cuidadosamente seleccionada para maximizar el valor nutricional sin sacrificar el sabor.</p>
+
+<p style="text-align: justify;">Además de las recetas, NutriActive ofrece funcionalidades innovadoras como la planificación de comidas, listas de compras personalizadas y un espacio para compartir tus propias creaciones culinarias. Nuestra comunidad está aquí para apoyarte en cada paso del camino, ofreciendo inspiración, consejos y motivación para alcanzar tus metas de salud y bienestar.</p>
+
+<p style="text-align: justify;">Únete a nosotros en NutriActive y descubre cómo pequeños cambios en tu alimentación pueden conducir a grandes mejoras en tu calidad de vida. Juntos, podemos transformar la forma en que comemos y vivimos, abrazando un estilo de vida saludable y activo que perdure a lo largo del tiempo.</p>
+
+<p style="text-align: justify;">¡Empieza hoy mismo tu viaje hacia una vida más saludable con NutriActive!</p>
+
+

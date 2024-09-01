@@ -5,21 +5,25 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'My Docs',
+			title: 'NutriActive',
 			social: {
 				github: 'https://github.com/withastro/starlight',
 			},
 			sidebar: [
 				{
-					label: 'Guides',
+					label: 'Descripción',
 					items: [
 						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', link: '/guides/example/' },
+						{ label: 'NutriActive', link: '/guides/example/' },
 					],
 				},
 				{
-					label: 'Reference',
+					label: 'Introducción',
 					autogenerate: { directory: 'reference' },
+				},
+				{
+						label: 'Interfaz',
+						autogenerate: { directory: 'Interfaz' },
 				},
 			],
 		}),
