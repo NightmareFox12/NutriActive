@@ -1,0 +1,23 @@
+/* .primary {
+  background-color: #e74c3c !important;
+} */
+
+.card-index {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #3E9B0F;
+  border-radius: 8px ;
+  box-shadow: 0 4px 6px #0000001a;
+  padding: 20px;
+  width: 300px;
+  text-align: justify;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .primary {
+    background-color: #3E9B0F !important;
+    color: #fff !important;
+  }
+}
