@@ -6,10 +6,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'NutriActive',
-      favicon: './src/assets/icon.ico',
-      social: {
-        github: 'https://github.com/withastro/starlight',
-      },
+      favicon: '/src/assets/icon.ico',
       sidebar: [
         {
           label: 'Descripción',

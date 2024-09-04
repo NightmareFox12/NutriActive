@@ -1,13 +1,13 @@
-/* .primary {
-  background-color: #e74c3c !important;
-} */
+.astro-aevxjd6v {
+  /* color: #3e9b0f; */
+}
 
 .card-index {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 1px solid #3E9B0F;
-  border-radius: 8px ;
+  border: 1px solid #3e9b0f;
+  border-radius: 8px;
   box-shadow: 0 4px 6px #0000001a;
   padding: 20px;
   width: 300px;
@@ -17,7 +17,12 @@
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
   .primary {
-    background-color: #3E9B0F !important;
+    background-color: #3e9b0f !important;
     color: #fff !important;
+  }
+
+  /* title topbar */
+  .astro-b5yrwloz {
+    color: #47b212 !important;
   }
 }
