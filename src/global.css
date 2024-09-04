@@ -1,5 +1,10 @@
-.astro-aevxjd6v {
-  /* color: #3e9b0f; */
+:root {
+  --sl-color-text-accent: #3e9b0f;
+  --sl-color-text-invert: #fff;
+}
+:root[data-theme='light'] {
+  --sl-color-text-accent: #3e9b0f;
+  --sl-color-text-invert: #fff;
 }
 
 .card-index {
@@ -14,6 +19,11 @@
   text-align: justify;
 }
 
+.astro-aevxjd6v[aria-current='page'] {
+  background-color: var(--sl-color-text-accent) !important;
+  color: var(--sl-color-text-invert) !important;
+}
+
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
   .primary {
@@ -24,5 +34,10 @@
   /* title topbar */
   .astro-b5yrwloz {
     color: #47b212 !important;
+  }
+
+  .astro-aevxjd6vp[aria-current='page'] {
+    background-color: var(--sl-color-text-accent) !important;
+    color: var(--sl-color-text-invert) !important;
   }
 }
