@@ -1,23 +1,67 @@
-/* .primary {
-  background-color: #e74c3c !important;
-} */
+:root {
+  --sl-color-text-accent: #3e9b0f;
+  --sl-color-text-invert: #fff;
+}
+:root[data-theme='light'] {
+  --sl-color-text-accent: #3e9b0f;
+  --sl-color-text-invert: #fff;
+}
+
+.container-card-index {
+  display: flex;
+  justify-content: space-around;
+}
 
 .card-index {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 1px solid #3E9B0F;
-  border-radius: 8px ;
+  border: 1px solid #3e9b0f;
+  border-radius: 8px;
   box-shadow: 0 4px 6px #0000001a;
   padding: 20px;
   width: 300px;
   text-align: justify;
 }
 
+.astro-aevxjd6v[aria-current='page'] {
+  background-color: var(--sl-color-text-accent) !important;
+  color: var(--sl-color-text-invert) !important;
+}
+
+.container-hamburger {
+  display: flex;
+  justify-content: center;
+}
+
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
   .primary {
-    background-color: #3E9B0F !important;
+    background-color: #3e9b0f !important;
     color: #fff !important;
+  }
+
+  /* title topbar */
+  .astro-b5yrwloz {
+    color: #47b212 !important;
+  }
+
+  .astro-aevxjd6vp[aria-current='page'] {
+    background-color: var(--sl-color-text-accent) !important;
+    color: var(--sl-color-text-invert) !important;
+  }
+}
+
+/* Phone portrait */
+@media screen and (max-width: 480px) {
+  .container-card-index {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container-hamburger {
+    width: 100vw;
+    display: grid;
+    place-items: center;
   }
 }

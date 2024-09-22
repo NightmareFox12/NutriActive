@@ -3,9 +3,11 @@ title: Recuperar Contraseña
 description: Recupera tu contraseña en caso de pérdida o olvido.
 ---
 
-<!-- Agregar el enlace a Font Awesome en el head -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+import Head from '../../../components/Head.astro';
 
+<Head />
+
+<main>
 <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 20px; text-align: center;">
   <i class="fas fa-key" style="color: #f39c12; margin-right: 10px;"></i>
   Recuperar Contraseña
@@ -16,10 +18,15 @@ description: Recupera tu contraseña en caso de pérdida o olvido.
 </p>
 
 <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; text-align: left;">
-  <i class="fas fa-envelope-open-text" style="color: #9b59b6; margin-right: 10px;"></i> Paso 1: Solicitar Recuperación
+  <i
+    class="fas fa-envelope-open-text"
+    style="color: #9b59b6; margin-right: 10px;"
+  ></i> Paso 1: Solicitar Recuperación
 </h3>
 <p style="text-align: justify;">
-  Ingresa tu <strong>Correo Electrónico</strong> registrado y solicita un <strong>Token de Verificación</strong> para iniciar el proceso de recuperación de tu contraseña.
+  Ingresa tu <strong>Correo Electrónico</strong> registrado y solicita un{' '}
+  <strong>Token de Verificación</strong> para iniciar el proceso de recuperación
+  de tu contraseña.
 </p>
 
 <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; text-align: left;">
@@ -28,3 +35,4 @@ description: Recupera tu contraseña en caso de pérdida o olvido.
 <p style="text-align: justify;">
   Recibirás un correo con el token necesario para verificar tu identidad y proceder con la creación de una nueva contraseña. Este proceso asegura que solo tú puedas cambiar la información de tu cuenta.
 </p>
+</main>
