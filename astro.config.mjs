@@ -19,7 +19,7 @@ export default defineConfig({
           autogenerate: { directory: 'reference' },
         },
         {
-          label: 'Interfaz',
+          label: 'Aplicación Móvil',
           autogenerate: { directory: 'Interfaz' },
         },
       ],
