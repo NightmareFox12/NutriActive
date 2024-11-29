@@ -10,16 +10,67 @@ hero:
     - text: Conocer más
       link: ./guides/example/
       icon: right-arrow
-      variant: primary
+      variant: secondary
 
       actions:
     - text: Descargar
-      link: ./guides/ayuda/
+      link: https://magenta-cheerful-ferret-114.mypinata.cloud/ipfs/QmQuqvfsH5djwsxELcyaMGsMiXhbkmCxS3UpPcHtwQpNBN?pinataGatewayToken=l6xDAhummwQ8OHBJAdGzVAuKyFD4ay4ItjszdPDc5jA7ARWOSA9yk8WAupBp--QC
+      icon: document
       variant: primary
+      attrs: { id: 'downloadLink' }
 ---
 
-import Que from '../../components/Que.astro';
 import Head from '../../components/Head.astro';
+import DownloadApk from '../../components/DownloadApk.astro';
+import Carousel from '../../components/Carousel.astro';
 
 <Head />
-<Que />
+<DownloadApk />
+<Carousel />
+
+<section class="container-image-presentation">
+  <article>
+    <div style='width: 50%'>
+      <h3 style='align-items: flex-end;'>Hábitos saludables</h3>
+      <p>
+        Con NutriActive, podrás llevar un registro diario de tus pasos, controlar
+        tu ingesta de agua y recibir notificaciones para mantenerte hidratado.
+        Además, monitoriza tus horas de sueño y recibe alertas para mejorar tu
+        calidad de descanso.
+      </p>
+    </div>
+    <img
+      src='/banner00.jpg'
+      alt='recipes'
+      class='img-presentation'
+      draggable='false'
+    />
+  </article>
+
+<article>
+  <img
+    src='/banner04.png'
+    alt='calculator'
+    class='img-presentation'
+    draggable='false'
+  />
+  <div style='width: 50%'>
+    <h3>Calculadora IMC</h3>
+    <p>
+      Con la calculadora de IMC de NutriActive, podrás monitorear tu índice de
+      masa corporal de manera sencilla y precisa. Obtén información valiosa
+      sobre tu salud, y sigue tus progresos a lo largo del tiempo.
+    </p>
+  </div>
+</article>
+
+</section>
+
+<footer class="footer-main">
+  <hr/>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <p>Venezuela - Aragua, La Victoria</p>
+    <p>&copy; 2024-2024 NutriActive</p>
+  </div>
+
+</footer>

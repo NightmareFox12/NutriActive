@@ -1,0 +1,80 @@
+<style>
+  .mySwiper {
+    margin-bottom: 100px;
+  }
+  .swiper {
+    width: 100%;
+    height: 500px;
+  }
+
+  .swiper-slide {
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s ease-in-out;
+  }
+
+  .swiper-slide img {
+    width: 100%;
+    object-fit: contain;
+    user-select: none;
+  }
+</style>
+
+<h2 style='text-align: center;'>Logra tus metas de salud con NutriActive</h2>
+<div class='swiper mySwiper'>
+  <div class='swiper-wrapper'>
+    <div class='swiper-slide'>
+      <img src='/banner00.jpg' alt='' />
+    </div>
+    <div class='swiper-slide'>
+      <img src='/banner01.png' alt='' />
+    </div>
+    <div class='swiper-slide'>
+      <img src='/banner02.png' alt='' />
+    </div>
+    <div class='swiper-slide'>
+      <img src='/banner03.png' alt='' />
+    </div>
+    <div class='swiper-slide'>
+      <img src='/banner04.png' alt='' />
+    </div>
+  </div>
+  <div class='swiper-button-next'></div>
+  <div class='swiper-button-prev'></div>
+</div>
+
+<script type='module'>
+  import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs';
+
+  addEventListener('load', async () => {
+    new Swiper('.mySwiper', {
+      loop: true,
+      autoplay: {
+        delay: 5000,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      slidesPerView: 2,
+      spaceBetween: 20,
+
+      breakpoints: {
+        '@0.75': {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        '@1.00': {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
+        '@1.50': {
+          slidesPerView: 4,
+          spaceBetween: 50,
+        },
+      },
+    });
+  });
+</script>
