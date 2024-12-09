@@ -5,14 +5,23 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
   integrations: [
     starlight({
+      head: [
+        {
+          tag: 'meta',
+          attrs: [
+            {
+              name: 'description',
+            },
+          ],
+          content: 'Aplicación NutriActive, controla tus hábitos saludables y mira recetas entre',
+        },
+      ],
       title: 'NutriActive',
       favicon: '/favicon.svg',
       sidebar: [
         {
           label: 'Descripción',
-          items: [
-            { label: 'NutriActive', link: '/guides/example/' },
-          ],
+          items: [{ label: 'NutriActive', link: '/guides/example/' }],
         },
         {
           label: 'Introducción',
