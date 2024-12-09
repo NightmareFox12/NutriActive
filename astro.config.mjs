@@ -8,12 +8,9 @@ export default defineConfig({
       head: [
         {
           tag: 'meta',
-          attrs: [
-            {
-              name: 'description',
-            },
-          ],
-          content: 'Aplicación NutriActive, controla tus hábitos saludables y mira recetas entre',
+          attrs: { name: 'description' },
+          content:
+            'Aplicación NutriActive, controla tus hábitos saludables y mira recetas entre',
         },
       ],
       title: 'NutriActive',
