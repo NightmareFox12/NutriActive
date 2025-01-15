@@ -10,30 +10,65 @@ hero:
     - text: Conocer más
       link: ./guides/example/
       icon: right-arrow
+      variant: secondary
+
+      actions:
+    - text: Descargar
+      link: https://magenta-cheerful-ferret-114.mypinata.cloud/ipfs/QmZoQmvdZS4zShMRoyHfrzpVtjtHFXjv3ViSbBKLUe7zRC?pinataGatewayToken=l6xDAhummwQ8OHBJAdGzVAuKyFD4ay4ItjszdPDc5jA7ARWOSA9yk8WAupBp--QC
+      icon: document
       variant: primary
+      attrs: { id: 'downloadLink' }
 ---
 
-<main class="container-card-index">
-  
-  <article class="card-index">
-    <div>
-      <h3>Recetas Saludables</h3>
-      <p>Explora una variedad de recetas nutritivas adaptadas a todos los niveles de habilidad culinaria.</p>
+import DownloadApk from '../../components/DownloadApk.astro';
+import Carousel from '../../components/Carousel.astro';
+
+<DownloadApk />
+<Carousel />
+
+<section class="container-image-presentation">
+  <article>
+    <div style='width: 50%'>
+      <h3 style='align-items: flex-end;'>Hábitos saludables</h3>
+      <p>
+        Con NutriActive, podrás llevar un registro diario de tus pasos, controlar
+        tu ingesta de agua y recibir notificaciones para mantenerte hidratado.
+        Además, monitoriza tus horas de sueño y recibe alertas para mejorar tu
+        calidad de descanso.
+      </p>
     </div>
+    <img
+      src='/banner00.jpg'
+      alt='recipes'
+      class='img-presentation'
+      draggable='false'
+    />
   </article>
 
-  <article class="card-index">
-    <div>
-      <h3>Rutinas de Ejercicio</h3>
-      <p>Encuentra rutinas de ejercicio diseñadas para mejorar tu condición física, sea cual sea tu nivel.</p>
-    </div>
-  </article>
+<article>
+  <img
+    src='/banner04.png'
+    alt='calculator'
+    class='img-presentation'
+    draggable='false'
+  />
+  <div style='width: 50%'>
+    <h3>Calculadora IMC</h3>
+    <p>
+      Con la calculadora de IMC de NutriActive, podrás monitorear tu índice de
+      masa corporal de manera sencilla y precisa. Obtén información valiosa
+      sobre tu salud, y sigue tus progresos a lo largo del tiempo.
+    </p>
+  </div>
+</article>
 
-  <article class="card-index">
-    <div>
-      <h3>Hábitos Saludables</h3>
-      <p>Adopta nuevos hábitos saludables y mantente motivado con nuestras herramientas de seguimiento y recordatorios.</p>
-    </div>
-  </article>
+</section>
 
-</main>
+<footer class="footer-main">
+  <hr/>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <p>Venezuela - Aragua, La Victoria</p>
+    <p>&copy; 2024-2024 NutriActive</p>
+  </div>
+
+</footer>

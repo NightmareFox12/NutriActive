@@ -1,0 +1,27 @@
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const downloadLink = document.getElementById(
+      'downloadLink'
+    ) as HTMLAnchorElement;
+    if (downloadLink) {
+      downloadLink.addEventListener('click', async (e) => {
+        try {
+          e.preventDefault();
+          const req = await fetch(downloadLink.href);
+
+          const res = await req.blob();
+          const url = window.URL.createObjectURL(res);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'nutriActive.zip';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        } catch (err) {
+          console.log(err);
+        }
+      });
+    }
+  });
+</script>

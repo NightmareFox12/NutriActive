@@ -5,14 +5,44 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
   integrations: [
     starlight({
+      head: [
+        {
+          tag: 'meta',
+          attrs: {
+            name: 'description',
+            content:
+              'Aplicación NutriActive, controla tus hábitos saludables y mira recetas entre',
+          },
+        },
+        {
+          tag: 'meta',
+          attrs: { name: 'keywords', content: 'NutriActive,Apk' },
+        },
+        {
+          tag: 'meta',
+          attrs: { name: 'author', content: 'NightmareFox12' },
+        },
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'stylesheet',
+            href: 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
+          },
+        },
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'stylesheet',
+            href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
+          },
+        },
+      ],
       title: 'NutriActive',
       favicon: '/favicon.svg',
       sidebar: [
         {
           label: 'Descripción',
-          items: [
-            { label: 'NutriActive', link: '/guides/example/' },
-          ],
+          items: [{ label: 'NutriActive', link: '/guides/example/' }],
         },
         {
           label: 'Introducción',
