@@ -5,21 +5,33 @@
 <script type='module'>
   'use strict';
   window.addEventListener('DOMContentLoaded', () => {
-    const burble = document.querySelector('.burble');
+    const burble = document.querySelector('.fab');
     const modal = document.querySelector('.chat-modal');
+    const chatBox = document.querySelector('.chat-box');
+    const closeBtn = document.querySelector('.close-chat');
 
     burble.addEventListener('click', () => {
       modal.style.display = 'block';
     });
 
-    document.querySelector('.close-chat').addEventListener('click', () => {
+    closeBtn.addEventListener('click', () => {
       modal.style.display = 'none';
+    });
+
+    // Cierre al hacer clic fuera del chat-box
+    document.addEventListener('click', (event) => {
+      const isClickInsideChat = chatBox.contains(event.target);
+      const isClickOnFab = burble.contains(event.target);
+
+      if (!isClickInsideChat && !isClickOnFab) {
+        modal.style.display = 'none';
+      }
     });
   });
 </script>
 
-<!-- Botón flotante -->
-<div class='burble'>
+<!-- FAB -->
+<div class='fab'>
   <svg
     xmlns='http://www.w3.org/2000/svg'
     width='24'
@@ -42,7 +54,7 @@
 </div>
 
 <!-- Modal de chat -->
-<div class='chat-modal'>
+<div class='chat-modal content-panel'>
   <div class='chat-box'>
     <button class='close-chat'>
       <svg
@@ -68,7 +80,7 @@
 </div>
 
 <style>
-  .burble {
+  .fab {
     position: fixed;
     bottom: 0;
     right: 0;
@@ -78,36 +90,32 @@
     background: #444;
     cursor: pointer;
     z-index: 1000;
+    outline: 1px solid #848;
   }
-
-  .burble:hover {
+  .fab:hover {
     background: #333;
     transform: scale(1.1);
   }
-
   .chat-modal {
     display: none;
     position: fixed;
     bottom: 80px;
     right: 20px;
     width: 320px;
-    background: white;
+    background: hsl(224, 10%, 10%);
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     z-index: 1000;
   }
-
   .chat-box {
     padding: 16px;
     position: relative;
   }
-
   .chat-box h2 {
     margin-top: 0;
     font-size: 18px;
   }
-
   .chat-messages {
     height: 120px;
     overflow-y: auto;
@@ -117,7 +125,6 @@
     font-size: 14px;
     color: #333;
   }
-
   .chat-box input {
     width: 100%;
     padding: 8px;
