@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --sl-color-text-accent: #3e9b0f;
   --sl-color-text-invert: #fff;

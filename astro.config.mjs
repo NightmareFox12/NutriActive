@@ -40,6 +40,14 @@ export default defineConfig({
             href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
           },
         },
+        {
+          tag: 'script',
+          attrs: {
+            src: '/theme-sync.js',
+            type: 'module',
+          },
+        }
+
       ],
       title: 'NutriActive',
       favicon: '/favicon.svg',
@@ -56,6 +64,7 @@ export default defineConfig({
           label: 'Aplicación Móvil',
           autogenerate: { directory: 'Interfaz' },
         },
+
       ],
       customCss: ['/src/global.css'],
     }),
