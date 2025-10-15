@@ -2,7 +2,7 @@
 import './../global.css';
 ---
 
-<script type='module'>
+<script type='module' is:inline>
   'use strict';
 
   const firstMessageArr = [
@@ -63,7 +63,6 @@ import './../global.css';
     const iaMsg = iaFragment.querySelector('#ia-msg');
     const container = iaMsg.querySelector('div');
 
-    // Agrega el mensaje principal
     container.appendChild(document.createTextNode(message));
 
     // Si hay fuentes, agregarlas como enlaces
@@ -72,7 +71,7 @@ import './../global.css';
       sourcesSpan.style.display = 'block';
       sourcesSpan.style.marginTop = '4px';
       sourcesSpan.style.fontSize = '0.75rem';
-      sourcesSpan.style.color = '#2563eb'; // azul resaltado
+      sourcesSpan.style.color = '#2563eb';
 
       sourcesSpan.innerHTML = sources
         .map(
@@ -85,6 +84,7 @@ import './../global.css';
     }
 
     msgBox.appendChild(iaMsg);
+    scrollToBottom();
   };
 
   const createMessageUser = (message) => {
@@ -111,6 +111,13 @@ import './../global.css';
         loaderElement = null;
       }
     }
+  };
+
+  const scrollToBottom = () => {
+    msgBox.scrollTo({
+      top: msgBox.scrollHeight,
+      behavior: 'smooth',
+    });
   };
 
   const callApi = async (query) => {
@@ -176,7 +183,10 @@ import './../global.css';
 </div>
 
 <!-- Chat Modal -->
-<div id='chat-modal' class='hidden fixed bottom-[80px] right-[20px] w-96 h-96 z-50'>
+<div
+  id='chat-modal'
+  class='hidden fixed bottom-[80px] right-[20px] w-96 h-96 z-50'
+>
   <div
     class='relative h-full p-2 flex flex-col bg-emerald-50 dark:bg-neutral-900 rounded-lg outline dark:outline-emerald-50'
   >
