@@ -138,7 +138,8 @@ import "./../global.css";
                 },
             );
 
-            const res = await req.json();
+            const res = await req.text();
+
             console.log(res);
 
             createMessageIA(res.response, res.sources);
