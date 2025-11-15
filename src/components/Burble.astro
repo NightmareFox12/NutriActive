@@ -1,323 +1,315 @@
 ---
-import "./../global.css";
+import './../global.css';
 ---
 
-<script type="module" is:inline>
-    "use strict";
+<script type='module' is:inline>
+  'use strict';
 
-    const firstMessageArr = [
-        "¡Hola! ¿Qué tipo de plan nutricional buscas? 🍉",
-        "Hola 👋 ¿En qué puedo ayudarte hoy?",
-        "¿Te gustaría descubrir una receta saludable hoy? 🥗",
-        "Hola 👋 ¿Quieres mejorar tu alimentación, entrenar o ambas cosas?",
-    ];
+  const firstMessageArr = [
+    '¡Hola! ¿Qué tipo de plan nutricional buscas? 🍉',
+    'Hola 👋 ¿En qué puedo ayudarte hoy?',
+    '¿Te gustaría descubrir una receta saludable hoy? 🥗',
+    'Hola 👋 ¿Quieres mejorar tu alimentación, entrenar o ambas cosas?',
+  ];
 
-    //templates
-    const iaTemplate = document.getElementById("ia-template");
-    const userTemplate = document.getElementById("user-template");
-    const loaderTemplate = document.getElementById("loader-template");
+  //templates
+  const iaTemplate = document.getElementById('ia-template');
+  const userTemplate = document.getElementById('user-template');
+  const loaderTemplate = document.getElementById('loader-template');
 
-    const fab = document.getElementById("fab");
-    const chatModal = document.getElementById("chat-modal");
-    const closeBtn = document.getElementById("close-chat");
+  const fab = document.getElementById('fab');
+  const chatModal = document.getElementById('chat-modal');
+  const closeBtn = document.getElementById('close-chat');
 
-    const msgBox = document.getElementById("msg-box");
-    const userForm = document.getElementById("user-form");
-    const userInput = document.getElementById("user-input");
-    const sndButton = document.getElementById("send-btn");
+  const msgBox = document.getElementById('msg-box');
+  const userForm = document.getElementById('user-form');
+  const userInput = document.getElementById('user-input');
+  const sndButton = document.getElementById('send-btn');
 
-    //states
-    let userText = "";
-    let loaderElement = null;
+  //states
+  let userText = '';
+  let loaderElement = null;
 
-    //listeners
-    fab.addEventListener("click", () => {
-        if (chatModal.style.display === "block")
-            chatModal.style.display = "none";
-        else chatModal.style.display = "block";
+  //listeners
+  fab.addEventListener('click', () => {
+    if (chatModal.style.display === 'block') chatModal.style.display = 'none';
+    else chatModal.style.display = 'block';
+  });
+
+  closeBtn.addEventListener('click', () => {
+    chatModal.style.display = 'none';
+  });
+
+  userInput.addEventListener('input', (e) => {
+    userText = e.target.value;
+
+    //verify button
+    if (userText.length > 0) sndButton.removeAttribute('disabled');
+    else sndButton.setAttribute('disabled', 'true');
+  });
+
+  userForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    createMessageUser(userText);
+    callApi(userText);
+    userInput.value = '';
+    userText = '';
+  });
+
+  //functions
+  const createMessageIA = (message, sources = []) => {
+    const iaFragment = iaTemplate.content.cloneNode(true);
+    const iaMsg = iaFragment.querySelector('#ia-msg');
+    const container = iaMsg.querySelector('div');
+
+    container.appendChild(document.createTextNode(message));
+
+    // Si hay fuentes, agregarlas como enlaces
+    if (Array.isArray(sources) && sources.length > 0) {
+      const sourcesSpan = document.createElement('span');
+      sourcesSpan.style.display = 'block';
+      sourcesSpan.style.marginTop = '4px';
+      sourcesSpan.style.fontSize = '0.75rem';
+      sourcesSpan.style.color = '#2563eb';
+
+      sourcesSpan.innerHTML = sources
+        .map(
+          (url, index) =>
+            `<a href="${url}" target="_blank" rel="noopener noreferrer">[Fuente ${index + 1}]</a>`
+        )
+        .join(' ');
+
+      container.appendChild(sourcesSpan);
+    }
+
+    msgBox.appendChild(iaMsg);
+    scrollToBottom();
+  };
+
+  const createMessageUser = (message) => {
+    const userFragment = userTemplate.content.cloneNode(true);
+    const userMsg = userFragment.querySelector('#user-msg');
+    userMsg.querySelector('div').appendChild(document.createTextNode(message));
+    msgBox.appendChild(userMsg);
+  };
+
+  const loadingResponse = (isLoading) => {
+    if (isLoading) {
+      userInput.setAttribute('disabled', 'true');
+      sndButton.setAttribute('disabled', 'true');
+
+      const loaderFragment = loaderTemplate.content.cloneNode(true);
+      loaderElement = loaderFragment.querySelector('div');
+      msgBox.appendChild(loaderElement);
+    } else {
+      userInput.removeAttribute('disabled');
+      sndButton.removeAttribute('disabled');
+
+      if (loaderElement) {
+        msgBox.removeChild(loaderElement);
+        loaderElement = null;
+      }
+    }
+  };
+
+  const scrollToBottom = () => {
+    msgBox.scrollTo({
+      top: msgBox.scrollHeight,
+      behavior: 'smooth',
     });
+  };
 
-    closeBtn.addEventListener("click", () => {
-        chatModal.style.display = "none";
-    });
+  const callApi = async (query) => {
+    try {
+      loadingResponse(true);
 
-    userInput.addEventListener("input", (e) => {
-        userText = e.target.value;
-
-        //verify button
-        if (userText.length > 0) sndButton.removeAttribute("disabled");
-        else sndButton.setAttribute("disabled", "true");
-    });
-
-    userForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        createMessageUser(userText);
-        callApi(userText);
-        userInput.value = "";
-        userText = "";
-    });
-
-    //functions
-    const createMessageIA = (message, sources = []) => {
-        const iaFragment = iaTemplate.content.cloneNode(true);
-        const iaMsg = iaFragment.querySelector("#ia-msg");
-        const container = iaMsg.querySelector("div");
-
-        container.appendChild(document.createTextNode(message));
-
-        // Si hay fuentes, agregarlas como enlaces
-        if (Array.isArray(sources) && sources.length > 0) {
-            const sourcesSpan = document.createElement("span");
-            sourcesSpan.style.display = "block";
-            sourcesSpan.style.marginTop = "4px";
-            sourcesSpan.style.fontSize = "0.75rem";
-            sourcesSpan.style.color = "#2563eb";
-
-            sourcesSpan.innerHTML = sources
-                .map(
-                    (url, index) =>
-                        `<a href="${url}" target="_blank" rel="noopener noreferrer">[Fuente ${index + 1}]</a>`,
-                )
-                .join(" ");
-
-            container.appendChild(sourcesSpan);
+      const req = await fetch(
+        'https://nightmarefox12-nutri-active-docs.hf.space/query',
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({ query: query }),
         }
+      );
 
-        msgBox.appendChild(iaMsg);
-        scrollToBottom();
-    };
+      const res = await req.json();
+      createMessageIA(res.response, res.sources);
+    } catch (err) {
+      console.log(err);
+      createMessageIA('Lo siento, ocurrió un error al procesar tu solicitud.');
+    } finally {
+      loadingResponse(false);
+    }
+  };
 
-    const createMessageUser = (message) => {
-        const userFragment = userTemplate.content.cloneNode(true);
-        const userMsg = userFragment.querySelector("#user-msg");
-        userMsg
-            .querySelector("div")
-            .appendChild(document.createTextNode(message));
-        msgBox.appendChild(userMsg);
-    };
+  //init
+  if (userText.length > 0) sndButton.removeAttribute('disabled');
+  else sndButton.setAttribute('disabled', 'true');
 
-    const loadingResponse = (isLoading) => {
-        if (isLoading) {
-            userInput.setAttribute("disabled", "true");
-            sndButton.setAttribute("disabled", "true");
-
-            const loaderFragment = loaderTemplate.content.cloneNode(true);
-            loaderElement = loaderFragment.querySelector("div");
-            msgBox.appendChild(loaderElement);
-        } else {
-            userInput.removeAttribute("disabled");
-            sndButton.removeAttribute("disabled");
-
-            if (loaderElement) {
-                msgBox.removeChild(loaderElement);
-                loaderElement = null;
-            }
-        }
-    };
-
-    const scrollToBottom = () => {
-        msgBox.scrollTo({
-            top: msgBox.scrollHeight,
-            behavior: "smooth",
-        });
-    };
-
-    const callApi = async (query) => {
-        try {
-            loadingResponse(true);
-
-            const req = await fetch(
-                "https://nightmarefox12-nutri-active-docs.hf.space/query",
-                {
-                    method: "POST",
-                    headers: {
-                        "content-type": "application/json",
-                    },
-                    body: JSON.stringify({ query: query }),
-                },
-            );
-
-            const res = await req.text();
-
-            console.log(res);
-
-            createMessageIA(res.response, res.sources);
-        } catch (err) {
-            console.log(err);
-            createMessageIA(
-                "Lo siento, ocurrió un error al procesar tu solicitud.",
-            );
-        } finally {
-            loadingResponse(false);
-        }
-    };
-
-    //init
-    if (userText.length > 0) sndButton.removeAttribute("disabled");
-    else sndButton.setAttribute("disabled", "true");
-
-    createMessageIA(
-        firstMessageArr[Math.floor(Math.random() * firstMessageArr.length)],
-    );
+  createMessageIA(
+    firstMessageArr[Math.floor(Math.random() * firstMessageArr.length)]
+  );
 </script>
 
 <!-- FAB -->
 <div
-    id="fab"
-    class="fixed bottom-0 right-0 !m-[16px] rounded-full p-3 cursor-pointer z-50 outline-green-600 outline bg-green-50 dark:bg-slate-700 hover:scale-105 transition-all delay-75 hover:bg-green-100 dark:hover:bg-slate-600"
+  id='fab'
+  class='fixed bottom-0 right-0 !m-[16px] rounded-full p-3 cursor-pointer z-50 outline-green-600 outline bg-green-50 dark:bg-slate-700 hover:scale-105 transition-all delay-75 hover:bg-green-100 dark:hover:bg-slate-600'
 >
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="lucide lucide-bot-icon lucide-bot"
-    >
-        <path d="M12 8V4H8"></path>
-        <rect width="16" height="12" x="4" y="8" rx="2"></rect>
-        <path d="M2 14h2"></path>
-        <path d="M20 14h2"></path>
-        <path d="M15 13v2"></path>
-        <path d="M9 13v2"></path>
-    </svg>
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    width='24'
+    height='24'
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    stroke-width='2'
+    stroke-linecap='round'
+    stroke-linejoin='round'
+    class='lucide lucide-bot-icon lucide-bot'
+  >
+    <path d='M12 8V4H8'></path>
+    <rect width='16' height='12' x='4' y='8' rx='2'></rect>
+    <path d='M2 14h2'></path>
+    <path d='M20 14h2'></path>
+    <path d='M15 13v2'></path>
+    <path d='M9 13v2'></path>
+  </svg>
 </div>
 
 <!-- Chat Modal -->
 <div
-    id="chat-modal"
-    class="hidden fixed bottom-[80px] right-[20px] w-11/12 sm:w-96 h-96 z-50"
+  id='chat-modal'
+  class='hidden fixed bottom-[80px] right-[20px] w-11/12 sm:w-96 h-96 z-50'
 >
-    <div
-        class="relative h-full p-2 flex flex-col bg-emerald-50 dark:bg-neutral-900 rounded-lg outline dark:outline-emerald-50"
+  <div
+    class='relative h-full p-2 flex flex-col bg-emerald-50 dark:bg-neutral-900 rounded-lg outline dark:outline-emerald-50'
+  >
+    <button
+      id='close-chat'
+      class='absolute top-0 right-0 p-2 bg-transparent border-none cursor-pointer hover:scale-105 delay-75'
     >
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        width='24'
+        height='24'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        stroke-width='2'
+        stroke-linecap='round'
+        stroke-linejoin='round'
+        class='lucide lucide-x-icon lucide-x'
+      >
+        <path d='M18 6 6 18'></path>
+        <path d='m6 6 12 12'></path>
+      </svg>
+    </button>
+    <p class='select-none text-lg font-semibold text-green-600'>
+      Asistente NutriActive
+    </p>
+
+    <article
+      id='msg-box'
+      class='relative overflow-y-scroll flex flex-col flex-1 rounded-sm p-1'
+    >
+    </article>
+
+    <form id='user-form' autocomplete='off'>
+      <div class='flex justify-center items-center gap-1'>
+        <input
+          id='user-input'
+          class='outline outline-green-500 rounded-sm px-1 bg-slate-100 flex-1 focus:outline-green-600 focus:bg-white dark:text-black'
+          name='question'
+          type='text'
+          placeholder=''
+        />
         <button
-            id="close-chat"
-            class="absolute top-0 right-0 p-2 bg-transparent border-none cursor-pointer hover:scale-105 delay-75"
+          id='send-btn'
+          class='border-none bg-green-600 p-1.5 rounded-full text-white grid place-items-center cursor-pointer hover:bg-green-500 hover:scale-105 transition-all -rotate-45 disabled:bg-gray-400 disabled:cursor-default disabled:scale-100'
         >
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-x-icon lucide-x"
-            >
-                <path d="M18 6 6 18"></path>
-                <path d="m6 6 12 12"></path>
-            </svg>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='20'
+            height='20'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            class='lucide lucide-send-horizontal-icon lucide-send-horizontal'
+          >
+            <path
+              d='M3.714 3.048a.498.498 0 0 0-.683.627l2.843 7.627a2 2 0 0 1 0 1.396l-2.842 7.627a.498.498 0 0 0 .682.627l18-8.5a.5.5 0 0 0 0-.904z'
+            ></path>
+            <path d='M6 12h16'></path>
+          </svg>
         </button>
-        <p class="select-none text-lg font-semibold text-green-600">
-            Asistente NutriActive
-        </p>
-
-        <article
-            id="msg-box"
-            class="relative overflow-y-scroll flex flex-col flex-1 rounded-sm p-1"
-        >
-        </article>
-
-        <form id="user-form" autocomplete="off">
-            <div class="flex justify-center items-center gap-1">
-                <input
-                    id="user-input"
-                    class="outline outline-green-500 rounded-sm px-1 bg-slate-100 flex-1 focus:outline-green-600 focus:bg-white dark:text-black"
-                    name="question"
-                    type="text"
-                    placeholder=""
-                />
-                <button
-                    id="send-btn"
-                    class="border-none bg-green-600 p-1.5 rounded-full text-white grid place-items-center cursor-pointer hover:bg-green-500 hover:scale-105 transition-all -rotate-45 disabled:bg-gray-400 disabled:cursor-default disabled:scale-100"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="lucide lucide-send-horizontal-icon lucide-send-horizontal"
-                    >
-                        <path
-                            d="M3.714 3.048a.498.498 0 0 0-.683.627l2.843 7.627a2 2 0 0 1 0 1.396l-2.842 7.627a.498.498 0 0 0 .682.627l18-8.5a.5.5 0 0 0 0-.904z"
-                        ></path>
-                        <path d="M6 12h16"></path>
-                    </svg>
-                </button>
-            </div>
-        </form>
-    </div>
+      </div>
+    </form>
+  </div>
 </div>
 
 <!-- templates -->
-<template id="ia-template">
-    <div id="ia-msg" class="flex justify-start !mt-1.5">
-        <div
-            class="bg-gray-200 rounded-lg p-1.5 break-words **max-w-[80%] w-fit** dark:bg-gray-600"
-        >
-        </div>
+<template id='ia-template'>
+  <div id='ia-msg' class='flex justify-start !mt-1.5'>
+    <div
+      class='bg-gray-200 rounded-lg p-1.5 break-words **max-w-[80%] w-fit** dark:bg-gray-600'
+    >
     </div>
+  </div>
 </template>
 
-<template id="user-template">
-    <div id="user-msg" class="flex justify-end !mt-1.5">
-        <div
-            class="bg-green-400 rounded-lg p-1 break-words **max-w-[80%] w-fit** dark:bg-green-700"
-        >
-        </div>
+<template id='user-template'>
+  <div id='user-msg' class='flex justify-end !mt-1.5'>
+    <div
+      class='bg-green-400 rounded-lg p-1 break-words **max-w-[80%] w-fit** dark:bg-green-700'
+    >
     </div>
+  </div>
 </template>
 
-<template id="loader-template">
-    <div class="flex justify-start !mt-1.5">
-        <div class="bg-gray-300 rounded-lg p-2 max-w-[80%] w-fit">
-            <div class="dot-loader flex gap-1">
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-            </div>
-        </div>
+<template id='loader-template'>
+  <div class='flex justify-start !mt-1.5'>
+    <div class='bg-gray-300 rounded-lg p-2 max-w-[80%] w-fit'>
+      <div class='dot-loader flex gap-1'>
+        <span class='dot'></span>
+        <span class='dot'></span>
+        <span class='dot'></span>
+      </div>
     </div>
+  </div>
 </template>
 
 <style>
-    .dot-loader .dot {
-        width: 8px;
-        height: 8px;
-        background-color: #4b5563;
-        border-radius: 50%;
-        animation: bounce 1.2s infinite ease-in-out;
-    }
+  .dot-loader .dot {
+    width: 8px;
+    height: 8px;
+    background-color: #4b5563;
+    border-radius: 50%;
+    animation: bounce 1.2s infinite ease-in-out;
+  }
 
-    .dot-loader .dot:nth-child(2) {
-        animation-delay: 0.2s;
-    }
+  .dot-loader .dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
 
-    .dot-loader .dot:nth-child(3) {
-        animation-delay: 0.4s;
-    }
+  .dot-loader .dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
 
-    @keyframes bounce {
-        0%,
-        80%,
-        100% {
-            transform: translateY(0);
-        }
-        40% {
-            transform: translateY(-8px);
-        }
+  @keyframes bounce {
+    0%,
+    80%,
+    100% {
+      transform: translateY(0);
     }
+    40% {
+      transform: translateY(-8px);
+    }
+  }
 </style>
