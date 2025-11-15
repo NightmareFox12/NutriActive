@@ -136,7 +136,9 @@ import './../global.css';
       );
 
       const res = await req.json();
-      createMessageIA(res.response, res.sources);
+
+      console.log(res)
+      createMessageIA(res.response.content, res.sources);
     } catch (err) {
       console.log(err);
       createMessageIA('Lo siento, ocurrió un error al procesar tu solicitud.');
